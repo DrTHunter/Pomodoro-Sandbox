@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -438,9 +439,123 @@
                 opacity: 0;
             }
         }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        .menu-btn {
+            padding: 10px 15px;
+            background: #673ab7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .dropdown-items {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: white;
+            min-width: 180px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .dropdown-items.show {
+            display: block;
+        }
+        .menu-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .menu-item:hover {
+            background: #f5f5f5;
+        }
+
+        /* Donate Panel Styles */
+        .donate-panel {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 280px;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 100;
+        }
+        .donate-panel.show {
+            display: block;
+        }
+        .donate-option {
+            display: block;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            transition: background 0.2s;
+        }
+        .donate-option:hover {
+            background: #e9e9e9;
+        }
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #666;
+        }
     </style>
 </head>
+
 <body>
+    <!-- Dropdown Menu -->
+    <div class="dropdown">
+        <button class="menu-btn" id="menuBtn">☰ Menu</button>
+        <div class="dropdown-items" id="menuItems">
+            <div class="menu-item" id="donateBtn">☕ Support</div>
+        </div>
+    </div>
+
+    <!-- Donate Panel -->
+    <div class="donate-panel" id="donatePanel">
+        <button class="close-btn" id="closeDonate">×</button>
+        <h3>Support This Project</h3>
+        <p>Enjoying this Pomodoro timer? Buy me a coffee!</p>
+        
+        <a href="https://www.paypal.com/donate?business=YOUR_EMAIL&item_name=Pomodoro+Timer+Support" 
+           target="_blank" 
+           class="donate-option">
+           💳 PayPal
+        </a>
+        
+        <a href="https://ko-fi.com/YOUR_USERNAME" 
+           target="_blank" 
+           class="donate-option">
+           ☕ Ko-fi
+        </a>
+        
+        <a href="https://www.buymeacoffee.com/YOUR_USERNAME" 
+           target="_blank" 
+           class="donate-option">
+           🍵 Buy Me a Coffee
+        </a>
+    </div>
+
     <div class="animal-side animal-left">
         <img class="animal-gif" id="leftAnimalGif" src="assets/working-dog-animation.gif" alt="Working animal">
     </div>
@@ -533,7 +648,12 @@
             rightAnimalGif: document.getElementById('rightAnimalGif'),
             body: document.body,
             alarmSound: document.getElementById('alarmSound'),
-            applauseSound: document.getElementById('applauseSound')
+            applauseSound: document.getElementById('applauseSound'),
+            menuBtn: document.getElementById('menuBtn'),
+            menuItems: document.getElementById('menuItems'),
+            donateBtn: document.getElementById('donateBtn'),
+            donatePanel: document.getElementById('donatePanel'),
+            closeDonate: document.getElementById('closeDonate')
         };
 
         // ========== State Management ==========
@@ -1107,6 +1227,39 @@
             }
         };
 
+        // ========== Dropdown Menu Functions ==========
+        const dropdownActions = {
+            init() {
+                // Toggle dropdown menu
+                DOM.menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    DOM.menuItems.classList.toggle('show');
+                });
+
+                // Donate button click
+                DOM.donateBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    DOM.donatePanel.classList.add('show');
+                    DOM.menuItems.classList.remove('show');
+                });
+
+                // Close donate panel
+                DOM.closeDonate.addEventListener('click', () => {
+                    DOM.donatePanel.classList.remove('show');
+                });
+
+                // Close panels when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!DOM.donatePanel.contains(e.target) && e.target !== DOM.donateBtn) {
+                        DOM.donatePanel.classList.remove('show');
+                    }
+                    if (!DOM.menuItems.contains(e.target) && e.target !== DOM.menuBtn) {
+                        DOM.menuItems.classList.remove('show');
+                    }
+                });
+            }
+        };
+
         // ========== Initialization ==========
         function setupEventListeners() {
             DOM.startButton.addEventListener('click', timerActions.start);
@@ -1127,6 +1280,8 @@
                     projectActions.addProject();
                 }
             });
+
+            dropdownActions.init();
         }
 
         function init() {
