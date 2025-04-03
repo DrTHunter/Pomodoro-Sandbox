@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -456,7 +455,6 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
         .dropdown-items {
@@ -494,9 +492,7 @@
             padding: 15px;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            max-height: 80vh;
-            overflow-y: auto;
+            z-index: 100;
         }
         
         .panel.show {
@@ -513,14 +509,57 @@
             color: #673ab7;
         }
         
+        .info-panel h4 {
+            color: #673ab7;
+            margin-bottom: 10px;
+        }
+        
         .info-panel p {
             line-height: 1.5;
             margin-bottom: 15px;
         }
         
+        .info-panel ol, .info-panel ul {
+            padding-left: 20px;
+        }
+        
+        .info-panel li {
+            margin-bottom: 8px;
+        }
+        
+        /* Productivity Panel Specific */
+        .productivity-panel {
+            width: 350px;
+        }
+        
+        .productivity-panel h3 {
+            margin-top: 0;
+            color: #673ab7;
+        }
+        
+        .productivity-panel h4 {
+            color: #673ab7;
+            margin-bottom: 10px;
+        }
+        
+        .productivity-panel p {
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .productivity-panel ul {
+            padding-left: 20px;
+        }
+        
+        .productivity-panel li {
+            margin-bottom: 8px;
+        }
+        
         /* Sounds Panel Specific */
         .sounds-panel {
             width: 250px;
+            max-height: 400px;
+            overflow-y: auto;
         }
         
         .sound-option {
@@ -604,13 +643,13 @@
         }
     </style>
 </head>
-
 <body>
     <!-- Dropdown Menu -->
     <div class="dropdown">
         <button class="dropdown-btn" id="menuBtn">☰ Menu</button>
         <div class="dropdown-items" id="menuItems">
             <div class="item" data-panel="info">ℹ️ Pomodoro Info</div>
+            <div class="item" data-panel="productivity">📊 Productivity Tracking</div>
             <div class="item" data-panel="sounds">🎵 Background Sounds</div>
             <div class="item" data-panel="music">🎧 LoFi Channels</div>
             <div class="item" data-panel="rewards">🏆 Rewards</div>
@@ -621,16 +660,51 @@
     <!-- Info Panel -->
     <div class="panel info-panel" id="infoPanel">
         <button class="close-btn" id="closeInfo">×</button>
-        <h3>Pomodoro Technique</h3>
-        <p>The Pomodoro Technique is a time management method developed by Francesco Cirillo.</p>
-        <p><strong>How it works:</strong></p>
+        <h3>About Pomodoro Technique</h3>
+        <p>The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s.</p>
+        
+        <h4>How to Use This Timer:</h4>
         <ol>
-            <li>Choose a task to focus on</li>
-            <li>Work for 25 minutes (one "Pomodoro")</li>
-            <li>Take a 5-minute break</li>
-            <li>After 4 Pomodoros, take a longer 30-minute break</li>
+            <li><strong>Choose a task</strong> to focus on</li>
+            <li><strong>Start the 25-minute timer</strong> (work session)</li>
+            <li>Work focused until the timer rings</li>
+            <li>Take a <strong>5-minute break</strong></li>
+            <li>After 4 work sessions, take a <strong>30-minute break</strong></li>
+            <li><strong>Change tasks</strong> after each Pomodoro to maintain productivity</li>
         </ol>
-        <p>This technique helps maintain focus and prevent burnout.</p>
+        
+        <h4>Key Productivity Tips:</h4>
+        <ul>
+            <li>Switch tasks every 25 minutes to maintain fresh focus</li>
+            <li>Use work notes to track different tasks</li>
+            <li>During breaks, completely disengage from work</li>
+            <li>Adjust timer lengths based on task complexity</li>
+            <li>Use the 5-minute breaks to stretch and refresh</li>
+        </ul>
+    </div>
+
+    <!-- Productivity Panel -->
+    <div class="panel productivity-panel" id="productivityPanel">
+        <button class="close-btn" id="closeProductivity">×</button>
+        <h3>Why Track Productivity?</h3>
+        <p>Tracking your work time and accomplishments provides concrete data to demonstrate your value to your organization.</p>
+        
+        <h4>Benefits for Performance Reviews:</h4>
+        <ul>
+            <li><strong>Quantify your contributions</strong> with exact hours worked and tasks completed</li>
+            <li><strong>Show efficiency improvements</strong> over time with historical data</li>
+            <li><strong>Document your focus</strong> - time tracking shows dedication to important tasks</li>
+            <li><strong>Identify productivity patterns</strong> to optimize your work habits</li>
+        </ul>
+        
+        <h4>How to Present for Raises:</h4>
+        <ul>
+            <li><strong>Show consistent productivity</strong> with your tracked work hours</li>
+            <li><strong>Highlight completed projects</strong> from your notes with time invested</li>
+            <li><strong>Demonstrate work-life balance</strong> with proper break tracking</li>
+            <li><strong>Show initiative</strong> by presenting your self-tracking system</li>
+            <li><strong>Connect to business outcomes</strong> - link your time to measurable results</li>
+        </ul>
     </div>
 
     <!-- Sounds Panel -->
@@ -642,6 +716,20 @@
         <div class="sound-option" data-sound="forest">🌲 Forest</div>
         <div class="sound-option" data-sound="waves">🌊 Ocean Waves</div>
         <div class="sound-option" data-sound="coffee">☕ Coffee Shop</div>
+        <div class="sound-option" data-sound="whitenoise">⚪ White Noise</div>
+        <div class="sound-option" data-sound="pinknoise">🌸 Pink Noise</div>
+        <div class="sound-option" data-sound="brownnoise">🟤 Brown Noise</div>
+        <div class="sound-option" data-sound="fan">🌀 Fan Noise</div>
+        <div class="sound-option" data-sound="thunder">⚡ Thunderstorm</div>
+        <div class="sound-option" data-sound="river">🌊 River Stream</div>
+        <div class="sound-option" data-sound="birds">🐦 Birds Chirping</div>
+        <div class="sound-option" data-sound="fireplace">🔥 Fireplace</div>
+        <div class="sound-option" data-sound="city">🏙️ City Ambience</div>
+        <div class="sound-option" data-sound="wind">🌬️ Wind</div>
+        <div class="sound-option" data-sound="crickets">🦗 Crickets</div>
+        <div class="sound-option" data-sound="waterfall">🌊 Waterfall</div>
+        <div class="sound-option" data-sound="library">📚 Library</div>
+        <div class="sound-option" data-sound="rainroof">☔ Rain on Roof</div>
         
         <input type="range" min="0" max="1" step="0.1" value="0.5" class="volume-control" id="volumeControl">
         <div style="text-align: center;">Volume</div>
@@ -710,6 +798,20 @@
     <audio id="forestSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-forest-ambience-1683.mp3"></audio>
     <audio id="wavesSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-waves-coming-to-shore-1934.mp3"></audio>
     <audio id="coffeeSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-busy-coffee-shop-1655.mp3"></audio>
+    <audio id="whitenoiseSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-white-noise-ambience-1719.mp3"></audio>
+    <audio id="pinknoiseSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-pink-noise-ambience-1720.mp3"></audio>
+    <audio id="brownnoiseSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-brown-noise-ambience-1721.mp3"></audio>
+    <audio id="fanSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-fan-ambience-1684.mp3"></audio>
+    <audio id="thunderSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-thunder-ambience-1682.mp3"></audio>
+    <audio id="riverSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-river-ambience-1718.mp3"></audio>
+    <audio id="birdsSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-birds-chirping-ambience-1722.mp3"></audio>
+    <audio id="fireplaceSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-fireplace-ambience-1681.mp3"></audio>
+    <audio id="citySound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-city-traffic-ambience-1723.mp3"></audio>
+    <audio id="windSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-wind-ambience-1717.mp3"></audio>
+    <audio id="cricketsSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-crickets-ambience-1686.mp3"></audio>
+    <audio id="waterfallSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-waterfall-ambience-1687.mp3"></audio>
+    <audio id="librarySound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-library-ambience-1680.mp3"></audio>
+    <audio id="rainroofSound" loop src="https://assets.mixkit.co/sfx/preview/mixkit-rain-on-window-1194.mp3"></audio>
 
     <div class="animal-side animal-left">
         <img class="animal-gif" id="leftAnimalGif" src="assets/working-dog-animation.gif" alt="Working animal">
@@ -803,25 +905,7 @@
             rightAnimalGif: document.getElementById('rightAnimalGif'),
             body: document.body,
             alarmSound: document.getElementById('alarmSound'),
-            applauseSound: document.getElementById('applauseSound'),
-            // Dropdown elements
-            menuBtn: document.getElementById('menuBtn'),
-            menuItems: document.getElementById('menuItems'),
-            infoPanel: document.getElementById('infoPanel'),
-            soundsPanel: document.getElementById('soundsPanel'),
-            musicPanel: document.getElementById('musicPanel'),
-            rewardsPanel: document.getElementById('rewardsPanel'),
-            donatePanel: document.getElementById('donatePanel'),
-            closeInfo: document.getElementById('closeInfo'),
-            closeSounds: document.getElementById('closeSounds'),
-            closeMusic: document.getElementById('closeMusic'),
-            closeRewards: document.getElementById('closeRewards'),
-            closeDonate: document.getElementById('closeDonate'),
-            volumeControl: document.getElementById('volumeControl'),
-            rainSound: document.getElementById('rainSound'),
-            forestSound: document.getElementById('forestSound'),
-            wavesSound: document.getElementById('wavesSound'),
-            coffeeSound: document.getElementById('coffeeSound')
+            applauseSound: document.getElementById('applauseSound')
         };
 
         // ========== State Management ==========
@@ -839,8 +923,7 @@
             completedSessions: 0,
             breakGif: 'assets/break-animation.gif',
             projects: [],
-            currentProject: null,
-            currentSound: null
+            currentProject: null
         };
 
         // ========== Timer Functions ==========
@@ -1399,16 +1482,63 @@
         // ========== Dropdown Menu Functions ==========
         const dropdownActions = {
             init() {
+                // DOM Elements
+                const menuBtn = document.getElementById('menuBtn');
+                const menuItems = document.getElementById('menuItems');
+                const panels = {
+                    info: document.getElementById('infoPanel'),
+                    productivity: document.getElementById('productivityPanel'),
+                    sounds: document.getElementById('soundsPanel'),
+                    music: document.getElementById('musicPanel'),
+                    rewards: document.getElementById('rewardsPanel'),
+                    donate: document.getElementById('donatePanel')
+                };
+                
+                // Close buttons
+                const closeBtns = {
+                    info: document.getElementById('closeInfo'),
+                    productivity: document.getElementById('closeProductivity'),
+                    sounds: document.getElementById('closeSounds'),
+                    music: document.getElementById('closeMusic'),
+                    rewards: document.getElementById('closeRewards'),
+                    donate: document.getElementById('closeDonate')
+                };
+                
+                // Audio Elements
+                const sounds = {
+                    rain: document.getElementById('rainSound'),
+                    forest: document.getElementById('forestSound'),
+                    waves: document.getElementById('wavesSound'),
+                    coffee: document.getElementById('coffeeSound'),
+                    whitenoise: document.getElementById('whitenoiseSound'),
+                    pinknoise: document.getElementById('pinknoiseSound'),
+                    brownnoise: document.getElementById('brownnoiseSound'),
+                    fan: document.getElementById('fanSound'),
+                    thunder: document.getElementById('thunderSound'),
+                    river: document.getElementById('riverSound'),
+                    birds: document.getElementById('birdsSound'),
+                    fireplace: document.getElementById('fireplaceSound'),
+                    city: document.getElementById('citySound'),
+                    wind: document.getElementById('windSound'),
+                    crickets: document.getElementById('cricketsSound'),
+                    waterfall: document.getElementById('waterfallSound'),
+                    library: document.getElementById('librarySound'),
+                    rainroof: document.getElementById('rainroofSound')
+                };
+                
+                let currentSound = null;
+                const volumeControl = document.getElementById('volumeControl');
+
                 // Toggle menu visibility
-                DOM.menuBtn.addEventListener('click', (e) => {
+                menuBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    DOM.menuItems.classList.toggle('show');
+                    menuItems.classList.toggle('show');
                 });
                 
                 // Close menu when clicking outside
                 document.addEventListener('click', (e) => {
-                    if (!DOM.menuBtn.contains(e.target)) {
-                        DOM.menuItems.classList.remove('show');
+                    if (!menuBtn.contains(e.target)) {
+                        menuItems.classList.remove('show');
                     }
                 });
                 
@@ -1419,38 +1549,35 @@
                         const panelName = item.getAttribute('data-panel');
                         
                         // Close all panels first
-                        document.querySelectorAll('.panel').forEach(panel => {
+                        Object.values(panels).forEach(panel => {
                             panel.classList.remove('show');
                         });
                         
                         // Show selected panel
-                        if (DOM[`${panelName}Panel`]) {
-                            DOM[`${panelName}Panel`].classList.add('show');
+                        if (panels[panelName]) {
+                            panels[panelName].classList.add('show');
                         }
                         
                         // Close the dropdown
-                        DOM.menuItems.classList.remove('show');
+                        menuItems.classList.remove('show');
                     });
                 });
                 
                 // Close panel buttons
-                document.querySelectorAll('.close-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const panel = btn.closest('.panel');
-                        if (panel) {
-                            panel.classList.remove('show');
-                        }
+                Object.entries(closeBtns).forEach(([panelName, btn]) => {
+                    btn.addEventListener('click', () => {
+                        panels[panelName].classList.remove('show');
                     });
                 });
                 
                 // Close panels when clicking outside
                 document.addEventListener('click', (e) => {
-                    if (!e.target.closest('.panel') && !e.target.closest('.item')) {
-                        document.querySelectorAll('.panel').forEach(panel => {
+                    Object.entries(panels).forEach(([panelName, panel]) => {
+                        if (!panel.contains(e.target) && !Array.from(document.querySelectorAll('.item')).some(item => 
+                            item.getAttribute('data-panel') === panelName && item.contains(e.target))) {
                             panel.classList.remove('show');
-                        });
-                    }
+                        }
+                    });
                 });
                 
                 // Sound selection
@@ -1459,23 +1586,23 @@
                         const soundType = option.getAttribute('data-sound');
                         
                         // Stop any currently playing sound
-                        if (STATE.currentSound) {
-                            STATE.currentSound.pause();
-                            STATE.currentSound.currentTime = 0;
+                        if (currentSound) {
+                            currentSound.pause();
+                            currentSound.currentTime = 0;
                         }
                         
                         // Play selected sound
-                        STATE.currentSound = DOM[`${soundType}Sound`];
-                        STATE.currentSound.volume = DOM.volumeControl.value;
-                        STATE.currentSound.play();
+                        currentSound = sounds[soundType];
+                        currentSound.volume = volumeControl.value;
+                        currentSound.play();
                     });
                 });
                 
                 // Volume control
-                DOM.volumeControl.addEventListener('input', () => {
-                    const volume = DOM.volumeControl.value;
-                    if (STATE.currentSound) {
-                        STATE.currentSound.volume = volume;
+                volumeControl.addEventListener('input', () => {
+                    const volume = volumeControl.value;
+                    if (currentSound) {
+                        currentSound.volume = volume;
                     }
                 });
             }
