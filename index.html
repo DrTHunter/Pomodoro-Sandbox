@@ -937,7 +937,7 @@
                 }
                 
                 STATE.isRunning = true;
-                STATE.isPaused = false;
+                STATE.isPaused: false;
                 STATE.sessionStartTime = new Date();
                 STATE.lastTrackingUpdate = Date.now();
                 
@@ -1504,30 +1504,16 @@
                     donate: document.getElementById('closeDonate')
                 };
                 
-                // Audio Elements
-                const sounds = {
-                    rain: document.getElementById('rainSound'),
-                    forest: document.getElementById('forestSound'),
-                    waves: document.getElementById('wavesSound'),
-                    coffee: document.getElementById('coffeeSound'),
-                    whitenoise: document.getElementById('whitenoiseSound'),
-                    pinknoise: document.getElementById('pinknoiseSound'),
-                    brownnoise: document.getElementById('brownnoiseSound'),
-                    fan: document.getElementById('fanSound'),
-                    thunder: document.getElementById('thunderSound'),
-                    river: document.getElementById('riverSound'),
-                    birds: document.getElementById('birdsSound'),
-                    fireplace: document.getElementById('fireplaceSound'),
-                    city: document.getElementById('citySound'),
-                    wind: document.getElementById('windSound'),
-                    crickets: document.getElementById('cricketsSound'),
-                    waterfall: document.getElementById('waterfallSound'),
-                    library: document.getElementById('librarySound'),
-                    rainroof: document.getElementById('rainroofSound')
-                };
-                
-                let currentSound = null;
+                // Volume control
                 const volumeControl = document.getElementById('volumeControl');
+                
+                // Initialize audio elements with default volume
+                document.querySelectorAll('audio').forEach(audio => {
+                    audio.volume = 0.5;
+                    audio.addEventListener('error', (e) => {
+                        console.error('Audio error:', e.target.src, 'failed to load');
+                    });
+                });
 
                 // Toggle menu visibility
                 menuBtn.addEventListener('click', (e) => {
@@ -1584,26 +1570,33 @@
                 document.querySelectorAll('.sound-option').forEach(option => {
                     option.addEventListener('click', () => {
                         const soundType = option.getAttribute('data-sound');
+                        const soundElement = document.getElementById(`${soundType}Sound`);
                         
-                        // Stop any currently playing sound
-                        if (currentSound) {
-                            currentSound.pause();
-                            currentSound.currentTime = 0;
-                        }
+                        // Stop all other sounds
+                        document.querySelectorAll('audio').forEach(audio => {
+                            if (audio !== soundElement && audio !== DOM.alarmSound && audio !== DOM.applauseSound) {
+                                audio.pause();
+                                audio.currentTime = 0;
+                            }
+                        });
                         
                         // Play selected sound
-                        currentSound = sounds[soundType];
-                        currentSound.volume = volumeControl.value;
-                        currentSound.play();
+                        if (soundElement) {
+                            soundElement.currentTime = 0;
+                            soundElement.volume = volumeControl.value;
+                            soundElement.play().catch(e => {
+                                console.error('Failed to play sound:', e);
+                            });
+                        }
                     });
                 });
                 
                 // Volume control
                 volumeControl.addEventListener('input', () => {
                     const volume = volumeControl.value;
-                    if (currentSound) {
-                        currentSound.volume = volume;
-                    }
+                    document.querySelectorAll('audio').forEach(audio => {
+                        audio.volume = volume;
+                    });
                 });
             }
         };
@@ -1646,6 +1639,14 @@
             
             // Set initial progress circle
             DOM.timerProgress.style.background = `conic-gradient(var(--primary-blue) 0%, transparent 0%)`;
+            
+            // Initialize audio elements
+            document.querySelectorAll('audio').forEach(audio => {
+                audio.volume = 0.5;
+                audio.addEventListener('error', (e) => {
+                    console.error('Audio error:', e.target.src, 'failed to load');
+                });
+            });
         }
 
         init();
